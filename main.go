@@ -5,19 +5,31 @@ import (
 )
 
 func canIDrink(age int) bool {
-	// if  age < 18 {
-	// 	return false
-	// } else {
-	// 	return true
-	// }
-
-	// if 안에 변수 선언 가능
-	// 조건문에서만 사용하는 변수라는 것을 표현하기에 좋음
-	if koreanAge := age + 2; koreanAge < 18 {
+	switch age {
+	case 10:
 		return false
-	} else {
+	case 18:
 		return true
 	}
+
+	// 마치 if문처럼 사용가능
+	switch {
+	case age < 18:
+		return false
+	case age == 18:
+		return true
+	case age > 50:
+		return false
+	}
+
+	// 마치 if문처럼 사용가능
+	switch koreanAge := age + 2; koreanAge {
+		case  10:
+			return false
+		case  18:
+			return true
+	}
+	return false
 }
 
 
