@@ -6,17 +6,16 @@ import (
 
 
 func main() {
-	// limit item
-	names := [5]string{"hoon", "kozel", "blang"}
-	names[3] = "ddd"
-	names[4] = "agdsg"
+	// Map  (js object 와 비슷하지만 또 다름)
+	//map[key][value]{입력}
+	hoon := map[string]string{
+		"name": "hoon",
+		"age": "12",
+	}
 
-	// slice (not length)
-	names2 := []string{"hoon", "kozel", "blang"}
-	// names2[3] = "ddd" // Error ❌
+	fmt.Println(hoon)
 
-	// 기존 array 을 변경하지 않고 새로 만들어서 반환
-	names2 = append(names2, "good")
-
-	fmt.Println(names2)
+	for key, value := range hoon {
+		fmt.Println(key, value)
+	}
 }
