@@ -2,22 +2,23 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
-// naked return
-// 리턴 타입에 변수를 바로 선언 (생성)
-// 함수가 끝나면 반환
-func lenAndUpper(name string) (length int, uppercase string) {
-	// defer 함수를 끝나고 실행
-	defer fmt.Println("I'm done")
-	length = len(name)
-	uppercase = strings.ToUpper(name)
-	return
+func superAdd(numbers ...int) int {
+	// range (index, number)
+	total := 0
+	for _, number := range numbers {
+		total += number
+	}
+
+	for i:=0; i< len(numbers); i++ {
+		fmt.Println(numbers[i])
+	}
+	return total
 }
 
 
 func main() {
-	totalLength, upperName := lenAndUpper("nico")
-	fmt.Println(totalLength, upperName)
+	result := superAdd(1, 2, 3, 4, 5, 6)
+	fmt.Println(result)
 }
