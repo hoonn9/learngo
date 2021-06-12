@@ -1,21 +1,23 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
+type person struct {
+	name string
+	age int
+	favFood []string
+}
 
 func main() {
-	// Map  (js object 와 비슷하지만 또 다름)
-	//map[key][value]{입력}
-	hoon := map[string]string{
-		"name": "hoon",
-		"age": "12",
-	}
+	// Struct  (js object 와 비슷하고 Map 보다 유연)
+	// Go 는 constructor 가 없음. 직접 실행해야 함
 
-	fmt.Println(hoon)
+	// 구조체 선언법
+	// 1.
+	favFood := []string{"kimchi", "coffee"}
+	// hoon := person{"hoon", 26, favFood}
 
-	for key, value := range hoon {
-		fmt.Println(key, value)
-	}
+	// 2.
+	hoon := person{name: "hoon", age: 26, favFood: favFood}
+	fmt.Println(hoon.name)
 }
