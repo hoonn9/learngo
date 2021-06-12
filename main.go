@@ -4,21 +4,23 @@ import (
 	"fmt"
 )
 
-func superAdd(numbers ...int) int {
-	// range (index, number)
-	total := 0
-	for _, number := range numbers {
-		total += number
-	}
+func canIDrink(age int) bool {
+	// if  age < 18 {
+	// 	return false
+	// } else {
+	// 	return true
+	// }
 
-	for i:=0; i< len(numbers); i++ {
-		fmt.Println(numbers[i])
+	// if 안에 변수 선언 가능
+	// 조건문에서만 사용하는 변수라는 것을 표현하기에 좋음
+	if koreanAge := age + 2; koreanAge < 18 {
+		return false
+	} else {
+		return true
 	}
-	return total
 }
 
 
 func main() {
-	result := superAdd(1, 2, 3, 4, 5, 6)
-	fmt.Println(result)
+	fmt.Println(canIDrink(16))
 }
