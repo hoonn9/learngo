@@ -1,23 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-type person struct {
-	name string
-	age int
-	favFood []string
-}
+	"github.com/hoonn9/learngo/accounts"
+)
 
 func main() {
-	// Struct  (js object 와 비슷하고 Map 보다 유연)
-	// Go 는 constructor 가 없음. 직접 실행해야 함
+	// 생성자 없이 만드는 법
+	// account := banking.Account{Owner: "hoon", Balance: 1000000}
+	// account.Owner = "pepe";
+	// fmt.Println(account)
 
-	// 구조체 선언법
-	// 1.
-	favFood := []string{"kimchi", "coffee"}
-	// hoon := person{"hoon", 26, favFood}
-
-	// 2.
-	hoon := person{name: "hoon", age: 26, favFood: favFood}
-	fmt.Println(hoon.name)
+	// private 여도 constructor 함수 선언해서 객체 생성 가능
+	accounts := accounts.NewAccount("hoon")
+	// accounts.balance = 12 // Error private라 변경 불가
+	fmt.Println(accounts)
 }
