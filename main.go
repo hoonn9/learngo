@@ -1,37 +1,57 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"time"
+	"net/http"
 )
 
-// Channel 은 Go routines 과 pipe와 같은 형태로 데이터를 주고 받는다.
+type requestResult struct {
+	url string
+	status string
+}
+
+var errRequestFailed = errors.New("Request Failed")
+
 func main() {
+	results := make(map[string]string)
+	c := make(chan requestResult)
 
-	// Channel 선언
-	// chan (주고 받은 정보 타입)
-	channel := make(chan string)
-	people := [5]string{"hoon", "kozel", "react", "typescript", "linux"}
+	urls := []string{
+		"https://www.airbnb.com/",
+		"https://www.naver.com/",
+		"https://www.amazon.com/",
+		"https://www.airbnb.com/",
+		"https://www.google.com/",
+		"https://www.reddit.com/",
+		"https://www.facebook.com/",
+		}
 
-	for _, person := range people {
-		go isSexy(person, channel)
+
+	for _, url := range urls {
+		go hitURL(url, c)
 	}
-	// channel 에서 데이터 받기
-	// 받을 때 까지 기다림
-	// result := <- channel
+	
+	for i:=0; i<len(urls); i++ {
+		result := <- c
+		results[result.url] = result.status
+	}
 
-	// block operation 함수 멈춤 (<-)
-	// fmt.Println("Waiting messages...")
-	// fmt.Println("Received this message: ", <- channel)
-	// fmt.Println("Received this message: ", <- channel)
-
-	for i:=0; i<len(people); i++ {
-		fmt.Println(<- channel)
+	for url, status := range results {
+		fmt.Println(url, status)
 	}
 }
 
-func isSexy(person string, channel chan string) {
-	time.Sleep(time.Second * 10)
-	// channel 에 데이터 보내기
-	channel <- person + " is sexy"
+// chan<-   => Send only
+
+
+func hitURL(url string, c chan<- requestResult) {
+	res, err := http.Get(url)
+	status := "OK"
+	
+	if err != nil || res.StatusCode >= 400 {
+		c <- requestResult{url: url, status: "FAILED"}
+	}
+	c <- requestResult{url: url, status: status}
+	
 }
